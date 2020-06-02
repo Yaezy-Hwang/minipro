@@ -57,16 +57,13 @@ public class PhoneApp {
     			break;
     			
     		case 5:
-    	    	System.out.println("**********************************************");
-    	    	System.out.println("*                 감사합니다.                *");
-    	    	System.out.println("**********************************************");
+    			endMsg(pList);
     	    	run = false;
     			break;
     			
     		default:
     			System.out.println("[다시 입력해 주세요.]");
     			break;
-    			
     		}//switch
     	
     	}//while
@@ -176,5 +173,13 @@ public class PhoneApp {
 			
 		}
     } //search
+    
+    public static void endMsg(List<Person> pList) throws IOException {
+    	System.out.println("**********************************************");
+    	System.out.println("*                 감사합니다.                *");
+    	System.out.println("**********************************************");
+    }
+    
+    
 
 }
