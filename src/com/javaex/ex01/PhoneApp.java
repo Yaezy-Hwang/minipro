@@ -163,7 +163,6 @@ public class PhoneApp {
     
     
     //검색하기
-    //검색
     public static void search(List<Person> pList){
     	System.out.println("<4.검색>");
       	System.out.print(">이름: ");

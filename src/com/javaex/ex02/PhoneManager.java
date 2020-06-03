@@ -89,17 +89,21 @@ public class PhoneManager {
 		BufferedWriter bwOver = new BufferedWriter(oswOver); 
 		
 		
-			System.out.println("<3.삭제>");
-			System.out.print(">번호 :");
-			int num = sc.nextInt()-1;
-			pList.remove(num);
+		System.out.println("<3.삭제>");
+		System.out.print(">번호 :");
+		int num = sc.nextInt()-1;
+		
+		if(num<pList.size() && num>0) {
+    		pList.remove(num);
+    		System.out.println("[삭제되었습니다.]");
+    	}else {
+    		System.out.println("[검색 결과가 없습니다.]");
+    	}
 			
 			for(Person p: pList) {
 				bwOver.write(p.getName()+","+p.getHp()+","+p.getCompany());
 				bwOver.newLine();
 			}//for
-			
-			System.out.println("[삭제되었습니다.]");
 			
 			bwOver.close();
 	}
@@ -108,16 +112,20 @@ public class PhoneManager {
 	public void showSearch() {
 		System.out.println("<4.검색>");
 		System.out.print(">이름: ");
-		String str = sc.next();
-	
-		for(Person pp: pList) {
-			String pPart = pp.getName();
-			if(pPart.contains(str)){
-				int idnum = pList.indexOf(pp)+1;
-				System.out.println(idnum+pp.showList());
-			}//if
+		String keyword = sc.next();
+		String result = null;
 		
-		}//for
+		for(Person p: pList) {
+    		if(p.getName().contains(keyword)) {
+    			result = pList.indexOf(p)+1+". "+p.showList();
+    			System.out.println(result);
+    		}
+    	}//for
+    	
+    	if(result==null) {
+    		System.out.println("[검색 결과가 없습니다.]");
+    	}
+		
 	}
 
 	// 5.종료시
