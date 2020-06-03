@@ -53,7 +53,7 @@ public class PhoneManager {
 
 	// 2.등록선택시
 	public void showAdd() throws IOException{
-		OutputStream out = new FileOutputStream("./PhoneDB.txt", true);
+		OutputStream out = new FileOutputStream("./PhoneDB.txt");
 		OutputStreamWriter osw = new OutputStreamWriter(out);
 		BufferedWriter bw = new BufferedWriter(osw); 
 		
@@ -72,13 +72,14 @@ public class PhoneManager {
 		//리스트에 추가
 		Person newP = new Person(name, hp, company);
 		pList.add(newP);
-		//파일에 쓰기
-		bw.write(name+","+hp+","+company);
-		bw.newLine();
 		
-		System.out.println("[등록되었습니다.]");
+		for(Person p: pList) {
+			bw.write(p.getName()+","+p.getHp()+","+p.getCompany());
+			bw.newLine();
+		}
 		
 		bw.close();
+		System.out.println("[등록되었습니다.]");
 
 	}
 
@@ -97,7 +98,7 @@ public class PhoneManager {
     		pList.remove(num);
     		System.out.println("[삭제되었습니다.]");
     	}else {
-    		System.out.println("[검색 결과가 없습니다.]");
+    		System.out.println("[삭제할 데이터가 없습니다.]");
     	}
 			
 			for(Person p: pList) {

@@ -44,10 +44,12 @@ public class PhoneApp {
     		
     		case 2:
     			addList(pList);
+    			writeFile(pList);
     			break;
     			
     		case 3:
     			deleteList(pList);
+    			writeFile(pList);
     			break;
     			
     		case 4:
@@ -92,6 +94,19 @@ public class PhoneApp {
     	br.close();
     }//readFile
     
+    public static void writeFile(List<Person> pList) throws IOException {
+    	OutputStream out = new FileOutputStream("./PhoneDB.txt");
+		OutputStreamWriter osw = new OutputStreamWriter(out);
+		BufferedWriter bw = new BufferedWriter(osw); 
+		
+		for(Person p: pList) {
+			bw.write(p.getName()+","+p.getHp()+","+p.getCompany());
+			bw.newLine();
+		}
+		
+		bw.close();
+    }
+    
     
     // 리스트 출력
     public static void showList(List<Person> pList) throws IOException {
@@ -104,10 +119,6 @@ public class PhoneApp {
     
     // 리스트에 추가하기
     public static void addList(List<Person> pList) throws IOException {
-    	OutputStream out = new FileOutputStream("./PhoneDB.txt", true);
-		OutputStreamWriter osw = new OutputStreamWriter(out);
-		BufferedWriter bw = new BufferedWriter(osw); 
-		
 		System.out.println("<2.등록>");
 		//정보입력받기
 		System.out.print(">이름: ");
@@ -124,23 +135,12 @@ public class PhoneApp {
 		Person newP = new Person(name, hp, company);
 		pList.add(newP);
 		
-		//파일에 이어쓰기
-		bw.write(name+","+hp+","+company);
-		bw.newLine();
-		
 		System.out.println("[등록되었습니다.]");
-		
-		bw.close();
     }//addList
     
     
     //삭제하기
     public static void deleteList(List<Person> pList) throws IOException {
-    	OutputStream outOver = new FileOutputStream("./PhoneDB.txt");
-		OutputStreamWriter oswOver = new OutputStreamWriter(outOver);
-		BufferedWriter bwOver = new BufferedWriter(oswOver); 
-		
-		
 			System.out.println("<3.삭제>");
 			System.out.print(">번호 :");
 			int num = sc.nextInt()-1;
@@ -149,16 +149,8 @@ public class PhoneApp {
 	    		pList.remove(num);
 	    		System.out.println("[삭제되었습니다.]");
 	    	}else {
-	    		System.out.println("[검색 결과가 없습니다.]");
+	    		System.out.println("[삭제할 데이터가 없습니다.]");
 	    	}
-			
-			//삭제한 결과 파일에 덮어쓰기
-			for(Person p: pList) {
-				bwOver.write(p.getName()+","+p.getHp()+","+p.getCompany());
-				bwOver.newLine();
-			}
-			
-			bwOver.close();
     }//delete
     
     

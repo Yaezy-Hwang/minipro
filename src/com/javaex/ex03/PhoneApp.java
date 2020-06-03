@@ -43,9 +43,10 @@ public class PhoneApp {
 				break;
 
 			case 3:
+				phoneList = phoneRepo.getList();
 				int delNo = phoneView.showDel();
 				phoneRepo.delInfo(delNo);
-				phoneView.showDelResult();
+				phoneView.showDelResult(phoneList, delNo);
 				break;
 
 			case 4:

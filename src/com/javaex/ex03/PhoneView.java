@@ -64,12 +64,16 @@ public class PhoneView {
 	public int showDel() {
 		System.out.println("<3.삭제>");
 		System.out.print(">번호 :");
-		return sc.nextInt();
+		return sc.nextInt()-1;
 	}
 
 	// 삭제완료시 결과 출력 메소드
-	public void showDelResult() {
-		System.out.println("[삭제되었습니다.]");
+	public void showDelResult(List<Person> phoneList, int num) {
+		if(num<phoneList.size() && num>=0) {
+    		System.out.println("[삭제되었습니다.]");
+    	}else {
+    		System.out.println("[삭제할 데이터가 없습니다.]");
+    	}
 	}
 
 	// 4.검색 : 검색을 위한 화면을 출력하고 사용자가 입력한 검색키워드를 입력받아 전달하는 메소드
@@ -80,12 +84,17 @@ public class PhoneView {
 
 	// 검색결과를 가져와 화면에 출력하는 메소드
 	public void showSearchResult(List<Person> phoneList, String keyword) {
+		String result = null;
 		for(Person p: phoneList) {
-			String pPart = p.getName();
-			if(keyword.contains(pPart)){
+			if(p.getName().contains(keyword)){
 				int idnum = phoneList.indexOf(p)+1;
-				System.out.println(idnum+p.showInfo());
+				result = idnum+p.showInfo();
+				System.out.println(result);
 			}//if
+			
+	    	}
+		if(result==null) {
+			System.out.println("[검색 결과가 없습니다.]");
 		}
 	}
 

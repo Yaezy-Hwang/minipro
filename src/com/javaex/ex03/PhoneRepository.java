@@ -63,7 +63,9 @@ public class PhoneRepository {
 	//선택한 번호의 데이터를 삭제하고 저장하는 메소드(모두 다시저장)
 	public void delInfo(int num) throws IOException{
 		List<Person> list = getList();
-		list.remove(num - 1);
+		if(num<list.size() && num>=0) {
+			list.remove(num);
+    	}
 		saveInfo(list);
 	}
 	
