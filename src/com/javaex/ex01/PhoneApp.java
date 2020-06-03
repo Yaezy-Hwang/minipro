@@ -17,8 +17,6 @@ public class PhoneApp {
 
     public static void main(String[] args) throws IOException{
 
-    	//1번문제
-    	
 		//Person Arraylist 생성
 		ArrayList<Person> pList = new ArrayList<Person>();
     	
@@ -125,7 +123,8 @@ public class PhoneApp {
 		//리스트에 추가
 		Person newP = new Person(name, hp, company);
 		pList.add(newP);
-		//파일에 쓰기
+		
+		//파일에 이어쓰기
 		bw.write(name+","+hp+","+company);
 		bw.newLine();
 		
@@ -145,34 +144,45 @@ public class PhoneApp {
 			System.out.println("<3.삭제>");
 			System.out.print(">번호 :");
 			int num = sc.nextInt()-1;
-			pList.remove(num);
 			
+			if(num<pList.size() && num>0) {
+	    		pList.remove(num);
+	    		System.out.println("[삭제되었습니다.]");
+	    	}else {
+	    		System.out.println("[검색 결과가 없습니다.]");
+	    	}
+			
+			//삭제한 결과 파일에 덮어쓰기
 			for(Person p: pList) {
 				bwOver.write(p.getName()+","+p.getHp()+","+p.getCompany());
 				bwOver.newLine();
 			}
-			
-			System.out.println("[삭제되었습니다.]");
 			
 			bwOver.close();
     }//delete
     
     
     //검색하기
-    public static void search(List<Person> pList) throws IOException {
-			System.out.println("<4.검색>");
-			System.out.print(">이름: ");
-			String str = sc.next();
-		
-			for(Person pp: pList) {
-			String pPart = pp.getName();
-			if(pPart.contains(str)){
-				int idnum = pList.indexOf(pp)+1;
-				System.out.println(idnum+pp.showList());
-			}
-			
-		}
-    } //search
+    //검색
+    public static void search(List<Person> pList){
+    	System.out.println("<4.검색>");
+      	System.out.print(">이름: ");
+    	String keyword = sc.next();
+    	String result = null;
+      	
+    	
+    	for(Person p: pList) {
+    		if(p.getName().contains(keyword)) {
+    			result = pList.indexOf(p)+1+". "+p.showList();
+    			System.out.println(result);
+    		}
+    	}//for
+    	
+    	if(result==null) {
+    		System.out.println("[검색 결과가 없습니다.]");
+    	}
+    	
+    }//search
     
     public static void endMsg(List<Person> pList) throws IOException {
     	System.out.println("**********************************************");
